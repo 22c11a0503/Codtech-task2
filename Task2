@@ -1,0 +1,79 @@
+# Student Grade Tracker
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = {}
+
+    def add_grade(self, subject, grade):
+        self.grades[subject] = grade
+        print(f"Added grade {grade} for {self.name} in {subject}.")
+
+    def update_grade(self, subject, new_grade):
+        if subject in self.grades:
+            self.grades[subject] = new_grade
+            print(f"Updated grade for {self.name} in {subject} to {new_grade}.")
+        else:
+            print(f"Subject {subject} not found for {self.name}.")
+
+    def display_grades(self):
+        print(f"\nGrades for {self.name}:")
+        for subject, grade in self.grades.items():
+            print(f"{subject}: {grade}")
+
+
+class GradeTracker:
+    def __init__(self):
+        self.students = {}
+
+    def add_student(self, student_name):
+        if student_name not in self.students:
+            self.students[student_name] = Student(student_name)
+            print(f"Added student {student_name}.")
+        else:
+            print(f"Student {student_name} already exists.")
+
+    def get_student(self, student_name):
+        if student_name in self.students:
+            return self.students[student_name]
+        else:
+            print(f"Student {student_name} not found.")
+            return None
+
+    def display_all_students(self):
+        print("\nAll Students:")
+        for student in self.students.values():
+            student.display_grades()
+
+
+# Example usage:
+tracker = GradeTracker()
+
+# Adding students
+tracker.add_student("Alice")
+tracker.add_student("Bob")
+
+# Adding grades
+alice = tracker.get_student("Alice")
+if alice:
+    alice.add_grade("Math", 90)
+    alice.add_grade("Science", 85)
+
+bob = tracker.get_student("Bob")
+if bob:
+    bob.add_grade("Math", 78)
+    bob.add_grade("Science", 82)
+
+# Updating grades
+if alice:
+    alice.update_grade("Math", 95)
+
+# Displaying individual grades
+if alice:
+    alice.display_grades()
+
+if bob:
+    bob.display_grades()
+
+# Displaying all students' grades
+tracker.display_all_students()
